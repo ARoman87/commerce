@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %} 
+
+<h1>Preview</h1>
+
+<p>{{list.title}}</p>
+<p>{{list.description}}</p>
+<p>{{list.image}}</p>
+
+
+<a href="{% url 'edit' list.id %} "><button>Edit</button></a>
+<a href="{% url 'listings' %}"><button>Submit</button></a>
+
+
+{% endblock %} 
