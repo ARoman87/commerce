@@ -12,4 +12,5 @@ urlpatterns = [
     path("edit/<str:pk>/", views.edit, name="edit"),
     path("listings", views.listings, name="listings"),
     path("delete/<str:pk>", views.delete, name="delete"),
+    path("search", views.search, name="search")
 ]

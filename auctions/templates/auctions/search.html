@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %} 
+<h1>Search Results</h1>
+
+{% for titles in title %}
+
+
+    <ul>
+        <li>{{titles.title}}</li>
+    </ul>
+{% empty %} 
+    <h1>No Results Found</h1>
+
+{% endfor %}
+{% endblock %}

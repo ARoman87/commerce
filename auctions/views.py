@@ -126,3 +126,10 @@ def delete(request, pk):
         "list": listing,
     })
 
+def search(request):
+    search = request.POST["q"]
+    title = Listing.objects.filter(title__icontains=search)
+    return render(request, "auctions/search.html", {
+        "search": search,
+        "title": title,
+    })

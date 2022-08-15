@@ -22,6 +22,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Categories</a>
+            </li>
             
             {% if user.is_authenticated %}
                 <li class="nav-item">
@@ -34,6 +37,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Watchlist</a>
+                </li>
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Log In</a>
@@ -42,6 +48,13 @@
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
             {% endif %}
+                <li>
+                    <form action="{% url 'search' %}" method="POST">
+                        {% csrf_token %}
+
+                        <input type="text" name="q" placeholder="Search">
+                    </form>
+                </li>
         </ul>
         <hr>
         {% block body %}
