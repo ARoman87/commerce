@@ -1,3 +1,179 @@
 body {
     padding: 10px;
 }
+
+.pageTitle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.borderline {
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+/* ------- Active Listing   ------- */
+
+.containerList {
+    list-style: none;
+    width: 95%;
+    margin: 20px auto;
+    border-top: 1px solid lightgray;
+    padding-top: 20px;
+}
+
+.listingContainer {
+    
+    height: 300px;
+    display: flex;
+    flex-direction: row;      
+}
+
+
+
+/* ----- Image Section (Left side)------ */
+
+.listingImage {
+    height: 300px;
+    width: 400px;
+    overflow: hidden;      
+}
+
+.listingImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: scale-down;
+}
+
+
+/* ----- Description Section (Right side)------ */
+
+.listingDescription {
+    margin-left: 40px;
+    width: 100%;
+}
+
+.listingDescription a {
+    text-decoration: none;
+    color: black;      
+}
+
+.listingDescription h3 {
+    margin: 10px 0 -5px 0;
+}
+
+.listingDescription h1 {
+    margin: -20px 0 0 0;
+}
+
+.listingDescription .bid {
+    margin: 40px 0 40px 0;
+    padding-top: 20px;
+}
+
+.fa-heart-o {
+    font-size: 28px !important;
+    float: right;
+    margin: 0 20px 0 0;
+}
+
+
+/* -------------------LIST ITEM PAGE -----------------------------*/
+
+.item-body {
+    border-top: 1px solid lightgray;
+    width: 60%;
+    margin: 0 auto;
+}
+.item-top {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-image {
+    margin-right: 40px;
+    height: 500px;
+    width: 500px;
+}
+
+.item-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: scale-down;
+}
+
+.item-right {
+    width: 80%;
+}
+
+.item-right h1 {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+.conditions {
+    margin-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+    padding: 10px 0 20px 0;
+}
+.conditions p{
+    margin: 0 0 0 20px;
+}
+
+.conditions .time {
+    margin-left: 25px;
+}
+
+.bid-box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+}
+
+.bid-amount {
+    margin: 0 80px 0 10px
+}
+
+.bid-amount h3 {
+    margin-top: -3px;
+}
+
+.bid-amount p {
+    color: gray;
+}
+
+.bid-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.bid-buttons button {
+    width: 250px;
+    height: 40px;
+    margin: 0 0 20px 0;
+    border-radius: 20px;
+}
+
+.bid-buttons .one {
+    background-color: #0053A0;
+    color: white;
+    border: none;
+}
+
+.bid-buttons .two {
+    background-color: white;
+    border: 1px #0053A0 solid;
+    color: #0053A0;
+}
+
+.comments {
+    border-top: 1px solid lightgray;
+}
+
+
+

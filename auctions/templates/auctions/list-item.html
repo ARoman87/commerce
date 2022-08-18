@@ -1,0 +1,50 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %} 
+
+<div class="item-body">
+    <div class="item-top">
+        <div class="item-image">
+            <img src="{{listings.image}}" alt="">
+        </div>
+
+        <div class="item-right">
+            <h1>{{listings.title}}</h1>
+            <div class="conditions">
+                <p>Condition: &ensp; New or Used</p>
+                <p class="time">Time Left: &ensp; Whatever Time is left here.</p>
+            </div>
+
+            <div class="bid-box">
+
+                <p>Current Bid:</p>
+
+                <div class="bid-amount">
+                    <h3>${{listings.bid}}</h3>
+                    <input type="text" placeholder="Bid Amount">
+                    <p>Enter US ${{listings.bid|add:"1"}} or more</p>
+                </div>
+
+                <div class="bid-buttons">
+                    <p>[ Number of Bids ]</p>
+                    <button class="one">Place Bid</button>
+                    <button class="two">Add to Wishlist</button>
+                </div>
+
+
+            </div>
+
+            <div class="item-description">
+                <p><strong>Description:</strong></p>
+                <p>{{listings.description}}</p>
+            </div>
+            
+        </div>
+    </div>
+    <div class="comments">
+        <h1>Comment Section</h1>
+    </div>
+</div>
+
+
+{% endblock %}

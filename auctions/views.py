@@ -9,7 +9,10 @@ from .models import *
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    listings = Listing.objects.filter()
+    return render(request, "auctions/index.html", {
+        "listings": listings
+    })
 
 
 def login_view(request):
@@ -133,3 +136,13 @@ def search(request):
         "search": search,
         "title": title,
     })
+
+def listItem(request, pk):
+    listings = Listing.objects.get(id=pk)
+    return render(request, "auctions/list-item.html", {
+        "listings": listings
+    })
+
+
+def wishlist(request):
+    return render(request, "auctions/wishlist.html")

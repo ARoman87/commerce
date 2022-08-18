@@ -12,5 +12,7 @@ urlpatterns = [
     path("edit/<str:pk>/", views.edit, name="edit"),
     path("listings", views.listings, name="listings"),
     path("delete/<str:pk>", views.delete, name="delete"),
-    path("search", views.search, name="search")
+    path("search", views.search, name="search"),
+    path("listItem/<str:pk>", views.listItem, name="listItem"),
+    path("wishlist", views.wishlist, name="wishlist")
 ]

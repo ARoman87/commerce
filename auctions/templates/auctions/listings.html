@@ -1,13 +1,48 @@
 {% extends "auctions/layout.html" %}
 
+
 {% block body %}
     <h2>My Listings</h2>
 {% for listing in listings %} 
 
-<ul>
-    <li>{{listing.title}} <a href="{% url 'edit' listing.id %} ">Edit</a> </li>
-</ul>
+    <ul class="containerList">
+        
+            <li>
+                  
+                <div class="listingContainer">
+                    <div class="listingImage">
+                        <a href="{% url 'edit' listing.id %} "> 
+                            <img src="{{listing.image}}" alt="">
+                        </a> 
+                    </div>
+
+                    <div class="listingDescription">
+                        <a href="{% url 'edit' listing.id %} "><h3>{{listing.title}}</h3></a>
+                        <p>New Or Used</p>
+                        <p>Current Bid:</p>
+                        <h1>${{listing.bid}}</h1>
+                        <p>Number of bids - Time Left</p>
+                        <a href="{% url 'wishlist' %}"><i class="fa fa-heart-o"></i></a>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                
+            </li>
+        
+
+
+        
+    </ul>
+
 
 {% endfor %} 
+
+
 
 {% endblock %}
