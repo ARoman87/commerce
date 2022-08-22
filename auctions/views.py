@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -11,7 +12,7 @@ from .models import *
 def index(request):
     listings = Listing.objects.filter()
     return render(request, "auctions/index.html", {
-        "listings": listings
+        "listings": listings,
     })
 
 
@@ -112,8 +113,16 @@ def edit(request, pk):
     if request.method == "POST":
         form = CreateForm(request.POST, instance=listing)
         if form.is_valid():
-           form.save()
-           return HttpResponseRedirect("/listings")
+           if "preview" in request.POST:
+                form = form.save(commit=False)
+                form.user = request.user
+                form.save()
+                return redirect("preview", form.pk)  
+           if "submit" in request.POST:
+                form = form.save(commit=False)
+                form.user = request.user
+                form = form.save()
+                return HttpResponseRedirect("/listings")
             
     return render(request, "auctions/edit.html", {
         "form": form,
@@ -139,10 +148,47 @@ def search(request):
 
 def listItem(request, pk):
     listings = Listing.objects.get(id=pk)
+    comments = Comments.objects.filter(listing=listings)
+    obj = WishList.objects.filter(listing_id = listings, user = request.user)
+    wish = WishList()
+    form = CommentForm()
+    other = True
+    if obj:
+        other = False
+        if "wishlist-delete" in request.POST:
+            obj.delete()
+            return HttpResponseRedirect("/listItem/" + pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            if "comment" in request.POST:
+                form = form.save(commit=False)
+                form.listing = listings
+                form.user = request.user
+                form.save()
+                return HttpResponseRedirect("/listItem/" + pk)
+            if "wishlist-add" in request.POST:
+                wish.user = request.user
+                wish.listing = listings
+                wish.save()
+                return HttpResponseRedirect("/listItem/" + pk)
+
     return render(request, "auctions/list-item.html", {
-        "listings": listings
+        "listings": listings,
+        "form": form,
+        "comments": comments,
+        "wish": wish,
+        "other": other
     })
 
 
 def wishlist(request):
-    return render(request, "auctions/wishlist.html")
+    list = Listing.objects.filter()
+    listings = Listing.objects.filter(user = request.user)
+    wishlist = WishList.objects.filter(user = request.user)
+    return render(request, "auctions/wishlist.html", {
+        "listings": listings,
+        "wishlist": wishlist,
+        "list": list,
+
+    })

@@ -2,27 +2,37 @@
 
 
 {% block body %}
-    <h2>My Listings</h2>
+    <div class="borderline">
+    <h2 class="myListings-title">My Listings</h2>
 {% for listing in listings %} 
 
     <ul class="containerList">
         
             <li>
                   
-                <div class="listingContainer">
-                    <div class="listingImage">
-                        <a href="{% url 'edit' listing.id %} "> 
+                <div class="myListingContainer">
+                    <div class="myListingImage">
                             <img src="{{listing.image}}" alt="">
-                        </a> 
                     </div>
 
-                    <div class="listingDescription">
-                        <a href="{% url 'edit' listing.id %} "><h3>{{listing.title}}</h3></a>
-                        <p>New Or Used</p>
-                        <p>Current Bid:</p>
-                        <h1>${{listing.bid}}</h1>
-                        <p>Number of bids - Time Left</p>
-                        <a href="{% url 'wishlist' %}"><i class="fa fa-heart-o"></i></a>
+                    <div class="myListingDescription">
+                        <div class="one">
+                            <h3>{{listing.title}}</h3>
+                            <p class="id">({{listing.id}})</p>
+                            <p class="current">Current Bid:</p>
+                            <h1>${{listing.bid}}</h1>
+                            <p>Number of bids</p>
+                        </div>
+                        <div class="two">
+                            <p>Time left</p>
+                            <p>Date Posted</p>
+                        </div>
+                        <div class="three">
+                            <a href="{% url 'edit' listing.id %}"><button class="edit">Edit</button></a>
+                            <a href="{% url 'delete' listing.id %}"><button class="delete">Delete</button></a>
+                        </div>
+                        
+                        
 
                     </div>
 
@@ -43,6 +53,6 @@
 
 {% endfor %} 
 
-
+    </div>
 
 {% endblock %}

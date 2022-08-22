@@ -2,22 +2,112 @@
 
 {% block body %} 
 
-<h1>Edit Listing</h1>
+<h1 style="text-align: center;">Edit Listing</h1>
 
-<form action="" method="post">
-    {% csrf_token %}
+<div class="create-body">
+    <form action="" method="post">
+        {% csrf_token %}
 
+        <h3>Listing details:</h3>
 
-    {{form.as_p}}
+        <div class="title">
+            <div class="left">
+                <h6>Title*</h6>
+                <p>Include keywords that buyers would use to search for your item.</p>
+            </div>
+            <div class="right">
+                {{form.title}}
+            </div>
+            
+        </div>
 
-    <input type="submit" name="submit" value="Save"/>
-    
-    
-    
+        <div class="title">
+            <div class="left">
+                <h6>Category</h6>
+                <p>Choose a category that best matches your listing.</p>
+            </div>
+            <div class="right">
+                {{form.category}}
+            </div>
+            
+        </div>
 
-    
-</form>
-<a href="{% url 'delete' list.id %}"><button>Delete</button></a>
+        <div class="title">
+            <div class="left">
+                <h6>Condition*</h6>
+                <p>Choose a condition.</p>
+            </div>
+            <div class="right">
+                {{form.condition}}
+            </div>
+            
+        </div>
+
+        <div class="title">
+            <div class="left">
+                <h6>Image</h6>
+                <p>Upload image via an image URL.</p>
+            </div>
+            <div class="right">
+                {{form.image}}
+            </div>
+            
+        </div>
+
+        <div class="title">
+            <div class="left">
+                <h6>Starting Bid*</h6>
+                <p>Upload image via an image URL.</p>
+            </div>
+            <div class="right">
+                {{form.bid}}
+            </div>
+            
+        </div>
+
+        <div class="title">
+            <div class="left">
+                <h6>Location*</h6>
+                <p>City and State (Austin, TX)</p>
+            </div>
+            <div class="right">
+                {{form.location}}
+            </div>
+            
+        </div>
+
+        <div class="title">
+            <div class="left">
+                <h6>Description*</h6>
+                <p>Start with a brief overview that describes your item's finest features. Shoppers will only see the first few lines of your description at first, so make it count!</p>
+
+                <p>Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.</p>
+            </div>
+            <div class="right">
+                {{form.description}}
+            </div>
+            
+        </div>
+        
+        
+        <div class="title">
+            <div class="left"></div>
+            <div class="create-buttons">
+
+                <input type="submit" name="preview" value="Preview" class="preview"/>
+                <input type="submit" name="submit" value="Save" class="submit"/>
+                <a href="{% url 'index' %}">Cancel</a>
+
+            </div>
+        </div>
+        
+        
+        
+
+        
+    </form>
+
+</div>
 
 
 

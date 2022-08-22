@@ -2,15 +2,56 @@
 
 {% block body %} 
 
-<h1>Preview</h1>
+<h1 style="text-align: center;">Preview</h1>
 
-<p>{{list.title}}</p>
-<p>{{list.description}}</p>
-<p>{{list.image}}</p>
+<div class="item-body">
+    <div class="item-top">
+        <div class="item-image">
+            <img src="{{list.image}}" alt="">
+        </div>
+
+        <div class="item-right">
+            <h1>{{list.title}}</h1>
+            <div class="conditions">
+                <p>Condition: &ensp; New or Used</p>
+                <p class="time">Time Left: &ensp; Whatever Time is left here.</p>
+            </div>
+
+            <div class="bid-box">
+
+                <p>Current Bid:</p>
+
+                <div class="bid-amount">
+                    <h3>${{list.bid}}</h3>
+                    <input type="text" placeholder="Bid Amount">
+                    <p>Enter US ${{list.bid|add:"1"}} or more</p>
+                </div>
+
+                <div class="bid-buttons">
+                    <p>[ Number of Bids ]</p>
+                    <button class="one">Place Bid</button>
+                    <button class="two">Add to Wishlist</button>
+                </div>
 
 
-<a href="{% url 'edit' list.id %} "><button>Edit</button></a>
-<a href="{% url 'listings' %}"><button>Submit</button></a>
+            </div>
 
+            <div class="conditions">
+                <p class="seller">Seller: &ensp; <strong>{{list.user}}</strong></p>
+                <p>Location: &ensp; Whatever Location here.</p>
+            </div>
+
+            <div class="item-description">
+                <p><strong>Description:</strong></p>
+                <p>{{list.description}}</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="preview-buttons">
+        <a href="{% url 'edit' list.id %} "><button class="edit">Edit</button></a>
+        <a href="{% url 'listings' %}"><button class="submit">Submit</button></a>
+    </div>
 
 {% endblock %} 

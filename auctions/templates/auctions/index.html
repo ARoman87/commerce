@@ -4,7 +4,7 @@
     
     <div class="borderline">
         <h2 class="pageTitle">Active Listings</h2>
-    {% for listing in listings %} 
+    {% for listing in listings reversed%} 
 
     <ul class="containerList">
         
@@ -22,16 +22,14 @@
 
                         <div class="title">
                             <h3><a href="{% url 'listItem' listing.id %} ">{{listing.title}}</a></h3>
-                            <p>New Or Used</p>
+                            <p>Condition: {{listing.condition|title}}</p>
                         </div>
 
                         <div class="bid">
                             <p>Current Bid:</p>
                             <h1>${{listing.bid}}</h1>
                             <p>Number of bids - Time Left</p>
-                        </div>
-                        
-                        <a href="{% url 'wishlist' %}"><i class="fa fa-heart-o"></i></a>
+                        </div> 
 
                     </div>
 

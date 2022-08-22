@@ -11,8 +11,8 @@
         <div class="item-right">
             <h1>{{listings.title}}</h1>
             <div class="conditions">
-                <p>Condition: &ensp; New or Used</p>
-                <p class="time">Time Left: &ensp; Whatever Time is left here.</p>
+                <p class="top">Condition: &ensp; {{listings.condition}}</p>
+                <p>Date Created: &ensp; {{listings.dateCreated}}</p>
             </div>
 
             <div class="bid-box">
@@ -26,12 +26,34 @@
                 </div>
 
                 <div class="bid-buttons">
+
                     <p>[ Number of Bids ]</p>
-                    <button class="one">Place Bid</button>
-                    <button class="two">Add to Wishlist</button>
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+
+                        <button class="one" type="submit" name="place-bid">Place Bid</button>
+
+
+                        {% if other == False %} 
+                        <button class="two" type="submit" name="wishlist-delete">Favorited</button>
+
+
+                        {% else %}
+                        <button class="two" type="submit" name="wishlist-add">Add to Wishlist</button>
+
+
+                        {% endif %}
+
+                    </form>
                 </div>
 
 
+            </div>
+
+            <div class="conditions">
+                <p class="seller">Seller: &ensp; <strong>{{listings.user}}</strong></p>
+                <p>Location: &ensp; {{listings.location|title}}</p>
             </div>
 
             <div class="item-description">
@@ -42,8 +64,42 @@
         </div>
     </div>
     <div class="comments">
-        <h1>Comment Section</h1>
+        <h1>Comments</h1>
+        <div class="comment-count-section">
+            <i class='fa fa-comments'></i><span class="comment-count">{{comments.count}} Comments</span>
+        </div>
+
+        <div class="user-comment">
+            <div class="comment-left">
+                <p>{{listings.user|make_list|first|upper}}</p>
+            </div>
+            <div class="comment-right">
+                <form action="" method="POST">
+                    {% csrf_token %} 
+    
+                    {{form}}
+                    <input type="submit" value="Post" name="comment">
+                </form>
+            </div>
+        </div>
+
     </div>
+
+    <div class="posted-comments">
+        {% for comment in comments reversed %}
+        <div class="user-comment">
+            <div class="comment-left">
+                <p>{{comment.user|make_list|first|upper}}</p>
+            </div>
+            <div class="posted-comment-right">
+                <h6 class="username">{{comment.user|title}} ꞏ <span class="timestamp">{{comment.dateCreated|timesince}} ago</span></h6>
+                <h5>{{comment.comment|capfirst}}</h5>
+    
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
 </div>
 
 

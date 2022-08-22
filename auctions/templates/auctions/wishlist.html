@@ -2,5 +2,57 @@
 
 {% block body %} 
 
+<div class="borderline">
+    <h2 class="pageTitle">Wish List</h2>
+{% for listing in wishlist reversed %} 
+<ul class="containerList">
+    
+        <li>
+              
+            <div class="listingContainer">
+                
+                <div class="listingImage">
+                    <a href="{% url 'listItem' listing.listing.id %} "> 
+                        <img src="{{listing.listing.image}}" alt="">
+                    </a> 
+                </div>
+
+                <div class="listingDescription">
+
+                    <div class="title">
+                        <h3><a href="{% url 'listItem' listing.listing.id %} ">{{listing.listing.title}}</a></h3>
+                        <p>Condition: {{listing.listing.condition|title}}</p>
+                    </div>
+
+                    <div class="bid">
+                        <p>Current Bid:</p>
+                        <h1>${{listing.listing.bid}}</h1>
+                        <p>Number of bids - Time Left</p>
+                    </div>
+
+                    
+                    
+
+                </div>
+
+
+            </div>
+
+
+
+
+            
+        </li>
+    
+
+
+    
+</ul>
+
+
+{% endfor %}
+</div> 
+
+
 
 {% endblock %} 
