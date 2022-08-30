@@ -21,7 +21,7 @@ class Listing(models.Model):
     bid = models.DecimalField(max_digits=10000000, decimal_places=2)
     condition = models.CharField(max_length=64, default="")
     location = models.CharField(max_length=64, default="")
-    dateCreated = models.DateTimeField(auto_now_add=True, null=True)
+    dateCreated = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f"Listing #{self.id}: {self.title} ({self.user.username.title()})"

@@ -11,8 +11,8 @@
         <div class="item-right">
             <h1>{{listings.title}}</h1>
             <div class="conditions">
-                <p class="top">Condition: &ensp; {{listings.condition}}</p>
-                <p>Date Created: &ensp; {{listings.dateCreated}}</p>
+                <p class="top">Condition: &ensp; {{listings.condition|title}}</p>
+                <p>Date Created: &ensp; {{listings.dateCreated|date:"F d, Y"}}</p>
             </div>
 
             <div class="bid-box">
@@ -21,19 +21,32 @@
 
                 <div class="bid-amount">
                     <h3>${{listings.bid}}</h3>
-                    <input type="text" placeholder="Bid Amount">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div>
+                        {% for message in messages %} 
+                            {{message}}
+                        {% endfor %}
+                        </div>
+                        
+                        
+                        {{bid}} 
+                        
+                    
                     <p>Enter US ${{listings.bid|add:"1"}} or more</p>
                 </div>
 
                 <div class="bid-buttons">
 
-                    <p>[ Number of Bids ]</p>
+                    <p>Number of bids: [{{bids.count}}]</p>
 
-                    <form action="" method="POST">
-                        {% csrf_token %}
+                    
 
                         <button class="one" type="submit" name="place-bid">Place Bid</button>
+                    </form>
 
+                    <form action="" method="POST">
+                            {% csrf_token %}
 
                         {% if other == False %} 
                         <button class="two" type="submit" name="wishlist-delete">Favorited</button>
@@ -58,7 +71,7 @@
 
             <div class="item-description">
                 <p><strong>Description:</strong></p>
-                <p>{{listings.description}}</p>
+                <p>{{listings.description|title}}</p>
             </div>
             
         </div>
@@ -78,8 +91,11 @@
                     {% csrf_token %} 
     
                     {{form}}
-                    <input type="submit" value="Post" name="comment">
+                    
+                   
+                    <input type="submit" name="post" value="Post" >
                 </form>
+                
             </div>
         </div>
 

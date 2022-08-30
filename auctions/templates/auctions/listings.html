@@ -25,7 +25,8 @@
                         </div>
                         <div class="two">
                             <p>Time left</p>
-                            <p>Date Posted</p>
+                            <p>Date Posted: <br>
+                                {{listing.dateCreated|date:"F d, Y"}}</p>
                         </div>
                         <div class="three">
                             <a href="{% url 'edit' listing.id %}"><button class="edit">Edit</button></a>

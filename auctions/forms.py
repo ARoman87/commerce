@@ -1,7 +1,7 @@
 from cProfile import label
 from importlib.metadata import requires
 from django.forms import ModelForm
-from .models import Listing, User, Comments, WishList
+from .models import Listing, User, Comments, WishList, Bids
 from django import forms
 
 CATEGORIES = [
@@ -60,8 +60,21 @@ class CommentForm(ModelForm):
         }
     
 
-
+# Dont think this is needed at all.
+"""
 class WishListForm(ModelForm):
     class Meta:
         model = WishList
         fields = ("user",)
+
+"""
+
+class BidForm(ModelForm):
+    class Meta:
+        model = Bids
+        fields = ("amount",)
+        widgets = {
+            "amount": forms.TextInput(attrs={
+                "placeholder": "Bid Amount"
+            })
+        }

@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Max
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -11,8 +13,10 @@ from .models import *
 
 def index(request):
     listings = Listing.objects.filter()
+    bids = Bids.objects.filter(listing__in=listings).count()
     return render(request, "auctions/index.html", {
         "listings": listings,
+        "bids": bids,
     })
 
 
@@ -149,10 +153,14 @@ def search(request):
 def listItem(request, pk):
     listings = Listing.objects.get(id=pk)
     comments = Comments.objects.filter(listing=listings)
+    bids = Bids.objects.filter(listing=listings)
     obj = WishList.objects.filter(listing_id = listings, user = request.user)
     wish = WishList()
     form = CommentForm()
+    bid = BidForm()
     other = True
+    max_bid = Bids.objects.aggregate(Max("amount"))["amount__max"]
+    max_user = Bids.objects.get(amount = max_bid)
     if obj:
         other = False
         if "wishlist-delete" in request.POST:
@@ -160,6 +168,7 @@ def listItem(request, pk):
             return HttpResponseRedirect("/listItem/" + pk)
     if request.method == "POST":
         form = CommentForm(request.POST)
+        bid = BidForm(request.POST)
         if form.is_valid():
             if "comment" in request.POST:
                 form = form.save(commit=False)
@@ -172,13 +181,28 @@ def listItem(request, pk):
                 wish.listing = listings
                 wish.save()
                 return HttpResponseRedirect("/listItem/" + pk)
+            if "place-bid" in request.POST:
+                bid = bid.save(commit=False)
+                bid.user = request.user
+                bid.listing = listings
+                if bid.amount <= listings.bid:
+                    messages.error(request, "Your bid needs to be higher than the current bid.")
+                elif max_user.user == request.user:
+                    messages.error(request, "You are already the highest bidder")
+                elif bid.amount > listings.bid:
+                    listings.bid = bid.amount
+                    listings.save()
+                    bid.save()
+                return HttpResponseRedirect("/listItem/" + pk)
 
     return render(request, "auctions/list-item.html", {
         "listings": listings,
         "form": form,
         "comments": comments,
         "wish": wish,
-        "other": other
+        "other": other,
+        "bid": bid,
+        "bids": bids
     })
 
 
